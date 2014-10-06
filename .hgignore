@@ -5,3 +5,4 @@ app/storage
 test/coverage/
 test/
 node_modules/
+.git/

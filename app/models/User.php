@@ -6,18 +6,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface{
 
     protected $table = 'players';
     protected $fillable = array(
-    	'id',
-    	'firstname', 
-    	'lastname', 
-    	'email' ,
-    	'password', 
-    	'created_at', 
-    	'updated_at'
+        'id',
+        'firstname', 
+        'lastname', 
+        'email' ,
+        'password', 
+        'created_at', 
+        'updated_at'
     ); 
-
+    public function scopeResponded($query)
+    {
+        $gameWeek = date("W");
+        return $query->where('week_as_int', '=', $gameWeek);
+    }
     public function userPlayingHistory()
     {
-        return $this->hasMany('UsersAttending');
+        return $this->hasMany('UsersAttending', 'player_id');
     }
 
     public function getUserByEmail($email)

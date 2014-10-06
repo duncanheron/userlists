@@ -10,9 +10,5 @@ class UsersAttending extends Eloquent {
         'response'
     );
 
-    public function scopeResponded($query)
-    {
-        $gameWeek = date("W");
-        return $query->where('week_as_int', '=', $gameWeek);
-    }
+    
 }
