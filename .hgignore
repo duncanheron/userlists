@@ -1,0 +1,7 @@
+syntax:glob
+vendor/
+app/storage
+.vagrant/
+test/coverage/
+test/
+node_modules/

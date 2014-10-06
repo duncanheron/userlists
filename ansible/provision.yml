@@ -1,0 +1,24 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+    root_folder: /vagrant
+    document_root: "{{ root_folder }}/public"
+    dbname: football_list
+    dbuser: football_list
+    dbpasswd: tuesdayfootball
+    timezone: Europe/London
+    writeable_dirs:
+      - app/storage/cache
+  tasks:
+    - include: tasks/common.yml
+    - include: tasks/development.yml
+    - include: tasks/host.yml
+    - include: tasks/app.yml
+
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=restarted
+    - name: reload apache
+      service: name=apache2 state=reloaded
+

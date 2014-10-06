@@ -1,0 +1,16 @@
+---
+- name: Apache | Copy Host Config
+  template: src=../files/football-list.conf dest=/etc/apache2/sites-available/football-list.conf
+
+- name: Apache | Enable Host Config
+  command: a2ensite football-list.conf
+  notify: restart apache
+
+- name: disable default apache virtualhost
+  file:
+    path: /etc/apache2/sites-enabled/000-default
+    state: absent
+  notify: restart apache
+
+- name: Apache | Ensure application files are present
+  file: path={{ document_root }} state=directory
