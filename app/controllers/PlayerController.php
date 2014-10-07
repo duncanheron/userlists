@@ -8,11 +8,6 @@ class PlayerController extends \BaseController {
 
     public function __construct(User $user, UsersAttending $usersAttending)
     {
-        // $user = Auth::user();
-        // print "<pre>";
-        // print_r($user);
-        // print "</pre>";
-        // die();
         $this->player = Auth::user();
         $this->playerId = Auth::id();
         $this->playersplaying = $usersAttending;
@@ -20,25 +15,11 @@ class PlayerController extends \BaseController {
 
     public function areYouPlaying()
     {
-        // print "<pre>";
-        // print_r($this->player);
-        // print "</pre>";
-        // die();
-        
-        /*$respondedForThisWeek = $this->playersplaying
+        $respondedForThisWeek = $this->playersplaying
             ->where('player_id', $this->playerId)
             ->responded()
             ->get()
-            ->first();*/
-        /*$respondedForThisWeek = $this->player->userPlayingHistory
-            ->responded()
-            ->get()
             ->first();
-        print "<pre>ssss";
-        print_r($respondedForThisWeek);
-        print "</pre>";
-        die();*/
-        $respondedForThisWeek = 0;
         return View::make('footballplayer')
             ->with('player', $this->player)
             ->with('playerhistory', $this->player->userPlayingHistory)

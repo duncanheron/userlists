@@ -6,6 +6,13 @@ Route::group(array('before' => 'auth.login'), function()
     {
         return View::make('index');
     }));
+
+    Route::get('/player',
+        array(
+            'as' => 'player',
+            'uses' => 'PlayerController@areYouPlaying'
+        )
+    );
 });
 
 Route::get('/login', array(
@@ -20,12 +27,7 @@ Route::post('/login', array(
     )
 );
 
-Route::get('/player',
-    array(
-        'as' => 'player',
-        'uses' => 'PlayerController@areYouPlaying'
-    )
-)->where('playerid', '\d+');
+
 
 Route::post('/player/{playerid}',
     array(
