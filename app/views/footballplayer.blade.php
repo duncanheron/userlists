@@ -5,7 +5,8 @@
 		{{Form::open(
 			array(
 				'action' => array(
-					'PlayerController@playingResponse', 'playerid' => $player->id
+					'PlayerController@currentWeekResponseAction', 
+					'playerid' => $player->id
 				), 
 				'id' => 'email_check'
 			)

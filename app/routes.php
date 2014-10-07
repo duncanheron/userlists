@@ -10,9 +10,16 @@ Route::group(array('before' => 'auth.login'), function()
     Route::get('/player',
         array(
             'as' => 'player',
-            'uses' => 'PlayerController@areYouPlaying'
+            'uses' => 'PlayerController@currentWeekAction'
         )
     );
+
+    Route::post('/player',
+        array(
+            'as' => 'playingresponse',
+            'uses' => 'PlayerController@currentWeekResponseAction'
+        )
+    )->where('playerid', '\d+');
 });
 
 Route::get('/login', array(
@@ -29,12 +36,7 @@ Route::post('/login', array(
 
 
 
-Route::post('/player/{playerid}',
-    array(
-        'as' => 'playingresponse',
-        'uses' => 'PlayerController@playingResponse'
-    )
-)->where('playerid', '\d+');
+
 
 Route::get('/player/notfound', function()
 {

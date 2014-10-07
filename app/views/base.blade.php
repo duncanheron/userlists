@@ -15,6 +15,12 @@
 			<p>{{ Session::get('message') }}</p>
 		</div>
 	@endif
+	@if (($messages->has('success')))
+    	{{ $messages->first('success') }}
+	@endif
+	@if (($messages->has('error')))
+    	{{ $messages->first('error') }}
+	@endif
 	<div id='wrapper'>
     	@yield('body')
     </div>

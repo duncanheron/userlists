@@ -1,19 +1,25 @@
 <?php
+use Illuminate\Support\Contracts\MessageProviderInterface;
 
 class PlayerController extends \BaseController {
 
     protected $player;
     protected $playerId;
     protected $playersplaying;
+    protected $messages;
 
-    public function __construct(User $user, UsersAttending $usersAttending)
+    public function __construct(
+        UsersAttending $usersAttending,
+        MessageProviderInterface $messages
+        )
     {
         $this->player = Auth::user();
         $this->playerId = Auth::id();
         $this->playersplaying = $usersAttending;
+        $this->messages = $messages;
     }
 
-    public function areYouPlaying()
+    public function currentWeekAction()
     {
         $respondedForThisWeek = $this->playersplaying
             ->where('player_id', $this->playerId)
@@ -23,48 +29,49 @@ class PlayerController extends \BaseController {
         return View::make('footballplayer')
             ->with('player', $this->player)
             ->with('playerhistory', $this->player->userPlayingHistory)
-            ->with('responded', $respondedForThisWeek);
+            ->with('responded', $respondedForThisWeek)
+            ->with('messages', $this->messages->getMessageBag());
     }
 
-    public function playingResponse()
+    public function currentWeekResponseAction()
     {
         $response = Input::get('response');
-        $player_id = Input::get('player_id');
+        // $player_id = Input::get('player_id');
 
         $playingRecord = $this->playersplaying->firstOrNew(
             array(
-                'player_id' => $player_id,
+                'player_id' => $this->playerId,
                 'week_as_int' => date("W")
             )
         );
-        // if record found update it.
         $playingRecord->response = $response;
         $playingRecord->save();
-        
+
         if ($response == 1) {
-            $messageTitle = 'See you there';
+            $this->messages
+            ->add('success', 'See you there')
+            ->flash();
+            /*$messageTitle = 'See you there';
             $message = 'Rain or shine.';
-            $messageClass = 'success';
-
+            $messageClass = 'success';*/
         } else {
-            $messageTitle = "You can't make it :(";
+            $this->messages
+            ->add('error', 'You can\'t make it :(')
+            ->flash();
+            /*$messageTitle = "You can't make it :(";
             $message = 'If this changes come back and let us know.';
-            $messageClass = 'error';
+            $messageClass = 'error';*/
         }
-
-        return $this->redirectToPlayer($player_id)
-            ->with('message', $message)
-            ->with('messagetitle', $messageTitle)
-            ->with('messageclass', $messageClass); 
+        // print_r($this->messages);die();
+        return Redirect::route('player')
+            // ->with('message', $message)
+            // ->with('messagetitle', $messageTitle)
+            // ->with('messageclass', $messageClass)
+            ->with('messages', $this->messages->getMessageBag()); 
     }
 
-    private function redirectToPlayer($player_id)
+    private function redirectToPlayer()
     {
-        return Redirect::route(
-            'player',
-            array(
-                'playerid' => $player_id
-            )
-        );
+        return Redirect::route('player');
     }
 }

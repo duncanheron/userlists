@@ -1,5 +1,13 @@
 <?php
-
+App::bind(
+    'Illuminate\Support\Contracts\MessageProviderInterface',
+    function()
+    {
+        return new App\Classes\FlashMessageBag(
+            App::make('session.store')
+        );
+    }
+);
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader
