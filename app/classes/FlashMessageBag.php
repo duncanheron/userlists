@@ -27,7 +27,6 @@ class FlashMessageBag extends MessageBag {
     public function flash()
     {
         $this->session->flash($this->session_key, $this->messages);
-        // die('flash');
         return $this;
     }
 }

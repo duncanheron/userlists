@@ -9,18 +9,12 @@
     @show
 </head>
 <body>
-	@if (Session::has('message'))
-		<div class="message {{ Session::get('messageclass') }}">
-			<h1>{{ Session::get('messagetitle') }}</h1>
-			<p>{{ Session::get('message') }}</p>
-		</div>
-	@endif
-	@if (($messages->has('success')))
-    	{{ $messages->first('success') }}
-	@endif
-	@if (($messages->has('error')))
-    	{{ $messages->first('error') }}
-	@endif
+		@if (Session::has('message'))
+			<div class="message {{ Session::get('messageclass') }}">
+				<h1>{{ Session::get('messagetitle') }}</h1>
+				<p>{{ Session::get('message') }}</p>
+			</div>
+		@endif
 	<div id='wrapper'>
     	@yield('body')
     </div>
