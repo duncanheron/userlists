@@ -37,7 +37,6 @@ class PlayerController extends \BaseController {
     public function currentWeekResponseAction()
     {
         $response = Input::get('response');
-        // $player_id = Input::get('player_id');
 
         $playingRecord = $this->playersplaying->firstOrNew(
             array(
@@ -52,22 +51,12 @@ class PlayerController extends \BaseController {
             $this->messages
             ->add('success', 'See you there')
             ->flash();
-            /*$messageTitle = 'See you there';
-            $message = 'Rain or shine.';
-            $messageClass = 'success';*/
         } else {
             $this->messages
             ->add('error', 'You can\'t make it :(')
             ->flash();
-            /*$messageTitle = "You can't make it :(";
-            $message = 'If this changes come back and let us know.';
-            $messageClass = 'error';*/
         }
-        // print_r($this->messages);die();
         return Redirect::route('player')
-            // ->with('message', $message)
-            // ->with('messagetitle', $messageTitle)
-            // ->with('messageclass', $messageClass)
             ->with('messages', $this->messages->getMessageBag()); 
     }
 
