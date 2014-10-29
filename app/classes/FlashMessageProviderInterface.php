@@ -2,6 +2,6 @@
 namespace App\Classes;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 
-interface FlashMessageProviderInterface{
+interface FlashMessageProviderInterface extends MessageProviderInterface{
 
 }
