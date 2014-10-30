@@ -26,10 +26,20 @@ class PlayerController extends \BaseController {
             ->responded()
             ->get()
             ->first();
+
+        // should rather get all teammates here
+        // then check each game week from the view
+        // $playersForThisWeek = $this->playersplaying
+        //     ->attendeesByGameweek(43)
+        //     ->get();
+        // echo '<pre>';
+        // print_r($playersForThisWeek);
+        // echo '</pre>';
         return View::make('footballplayer')
             ->with('player', $this->player)
             ->with('playerhistory', $this->player->userPlayingHistory)
             ->with('responded', $respondedForThisWeek)
+            // ->with('playersForThisWeek', $playersForThisWeek)
             ->with('messages', $this->messages->getMessageBag());
     }
 

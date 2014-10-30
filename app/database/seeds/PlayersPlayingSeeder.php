@@ -20,15 +20,15 @@ class PlayersPlayingSeeder extends Seeder {
         $this->command->info('Creating my players playing history ...');
         for ($i = 0; $i < 10; $i++) {
             $date = $i == 0
-                    ? strtotime('last Tuesday -1 week')
-                    : date('now');
+                    ? date('Y-m-d H:i:s', strtotime('now'))
+                    : date('Y-m-d H:i:s', strtotime('last Tuesday -'.$i.' week'));
             $players = UsersAttending::create(
                 array(
                     'player_id'   => 1,
                     'week_as_int' => date("W") - $i,
                     'response'    => 1,
-                    'created_at'  => date('Y-m-d H:i:s', $date),
-                    'updated_at'  => date('Y-m-d H:i:s', $date)
+                    'created_at'  => $date,
+                    'updated_at'  => $date
                 )
             );
         }
@@ -42,15 +42,16 @@ class PlayersPlayingSeeder extends Seeder {
         for ($i = 2; $i <= 10; $i++) {
             for($j = 0; $j < 3; $j++) {
                 $date = $j == 0
-                        ? strtotime('last Tuesday -1 week')
-                        : '';
+                        ? date('Y-m-d H:i:s', strtotime('now'))
+                        : date('Y-m-d H:i:s', strtotime('last Tuesday -'.$j.' week'));
+                $this->command->info($date);
                 $player = UsersAttending::create(
                     array(
                         'player_id'   => $i,
                         'week_as_int' => date("W") - 1,
                         'response'    => 1,
-                        'created_at'  => $faker->dateTime($date),
-                        'updated_at'  => $faker->dateTime($date)
+                        'created_at'  => $date,
+                        'updated_at'  => $date
                     )
                 );
             }
