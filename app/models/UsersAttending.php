@@ -30,9 +30,4 @@ class UsersAttending extends Eloquent {
     {
         return $query->where('response', '=', 0);
     }
-
-    public function scopeAttendeesByGameweek($query, $gameWeek)
-    {
-        return $query->where('week_as_int', '=', $gameWeek);
-    }
 }

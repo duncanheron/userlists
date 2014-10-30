@@ -48,7 +48,7 @@ class PlayersPlayingSeeder extends Seeder {
                 $player = UsersAttending::create(
                     array(
                         'player_id'   => $i,
-                        'week_as_int' => date("W") - 1,
+                        'week_as_int' => date("W") - $j,
                         'response'    => 1,
                         'created_at'  => $date,
                         'updated_at'  => $date

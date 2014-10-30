@@ -46,27 +46,40 @@
                     array('id' => 'submit')) }}
             </fieldset>
         {{ Form::close() }}
-        
-        @if ($playerhistory)
-            <h2>history</h2>
-            @foreach ($playerhistory as $played)
-                <p>Responded gameweek: 
-                    {{ $played->week_as_int }} - 
-                    {{ date("d M Y",strtotime($played->updated_at)) }}
-                </p>
-                <p>
-                    You said: 
-                    @if ($played->response == 1) 
-                        You are playing this week. :)
-                    @elseif ($played->response == 0) 
-                        You are not playing this week. :(
-                    @else
-                        Error: no response found.
-                    @endif
-                </p>
-            @endforeach
-        @endif
-
     </div>
+
+    @if ($playerhistory)
+    <div id="history" style="clear:both;">
+        <h2>history</h2>
+        @foreach ($playerhistory as $played)
+            <p>Responded gameweek: {{ $played->week_as_int }} - {{ date("d M Y",strtotime($played->updated_at)) }}
+            </p>
+            <div>
+                <ul>
+                    <li>
+                        You said: 
+                        @if ($played->response == 1) 
+                            You are playing this week. :)
+                        @elseif ($played->response == 0) 
+                            You are not playing this week. :(
+                        @else
+                            Error: no response found.
+                        @endif
+                    </li>
+                    <li>Other players responses
+                        <ul>
+                            <?php $thisgameWeek = array(); ?>
+                            <?php $thisgameWeek = $gameWeeks[$played->week_as_int] ?>
+                            @foreach ($thisgameWeek as $key => $value) 
+                                <li>{{ $value['user']->email }} - YES</li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        @endforeach
+        </div> <!-- end history -->
+    @endif
+
 @stop
 <!-- Slide THREE -->
