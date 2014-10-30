@@ -26,7 +26,6 @@ class PlayerController extends \BaseController {
             ->responded()
             ->get()
             ->first();
-
         return View::make('footballplayer')
             ->with('player', $this->player)
             ->with('playerhistory', $this->player->userPlayingHistory)

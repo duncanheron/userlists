@@ -16,6 +16,7 @@ class PlayerSeeder extends Seeder {
 
         $player = User::create(
             array(
+                'id' => 1,
                 'firstname' => 'Duncan',
                 'lastname' => 'Heron',
                 'email' => 'duncanuk@gmail.com',
