@@ -24,11 +24,11 @@ class PlayersPlayingSeeder extends Seeder {
                     : date('now');
             $players = UsersAttending::create(
                 array(
-                    'player_id' => 1,
+                    'player_id'   => 1,
                     'week_as_int' => date("W") - $i,
-                    'response' => 1,
-                    'created_at' => date('Y-m-d H:i:s', $date),
-                    'updated_at' => date('Y-m-d H:i:s', $date)
+                    'response'    => 1,
+                    'created_at'  => date('Y-m-d H:i:s', $date),
+                    'updated_at'  => date('Y-m-d H:i:s', $date)
                 )
             );
         }
@@ -36,25 +36,25 @@ class PlayersPlayingSeeder extends Seeder {
         /**
          * Create auto generated players history playing history
          */
-        /*$this->command->info('Creating random players playing history ...');
+        $this->command->info('Creating random players playing history ...');
         $faker = Faker\Factory::create();
  
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 2; $i <= 10; $i++) {
             for($j = 0; $j < 3; $j++) {
                 $date = $j == 0
                         ? strtotime('last Tuesday -1 week')
                         : '';
-                $player = User::create(
+                $player = UsersAttending::create(
                     array(
-                        'player_id' => $i,
+                        'player_id'   => $i,
                         'week_as_int' => date("W") - 1,
-                        'response' => 1,
-                        'created_at' => $faker->dateTime($date),
-                        'updated_at' => $faker->dateTime($date)
+                        'response'    => 1,
+                        'created_at'  => $faker->dateTime($date),
+                        'updated_at'  => $faker->dateTime($date)
                     )
                 );
             }
-        }*/
+        }
         
         $this->command->info('Players table seeded with playing history ...');
     }
