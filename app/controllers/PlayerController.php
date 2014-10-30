@@ -27,22 +27,19 @@ class PlayerController extends \BaseController {
             ->get()
             ->first();
 
-        // should rather get all teammates here
-        // then check each game week from the view
+        /**
+         * Collect all the players responses
+         * Organise them into gameweek keyed arrays
+         * Populate with the User object
+         */
         $allResponses = $this->playersplaying
             ->get();
-        echo '<pre>';
-            $gameWeeks = array();
-            foreach($allResponses as $responses) {
-
-                $gameWeeks[$responses->week_as_int][] = array(
-                    'user' => User::find($responses->player_id)
-                );
-            }
-        echo '<pre>';
-            // print_r($gameWeeks);
-        echo '</pre>';
-        // die();
+        $gameWeeks = array();
+        foreach($allResponses as $responses) {
+            $gameWeeks[$responses->week_as_int][] = array(
+                'user' => User::find($responses->player_id)
+            );
+        }
         return View::make('footballplayer')
             ->with('player', $this->player)
             ->with('playerhistory', $this->player->userPlayingHistory)
