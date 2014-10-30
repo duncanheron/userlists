@@ -22,16 +22,16 @@
                 'id' => 'email_check'
             )
         )}}
-        <h1>Hello {{ $player->firstname }}</h1>
-        
-        @if (! ($responded)) 
-            <p>Let us know if you are playing this week.</p>
-        @elseif ($responded->response == 1) 
-            <p class="playing">You are playing this week!</p>
-        @elseif ($responded->response == 0)
-            <p class="notplaying">You have said you can't make it this week.</p>
-            <p class="notplaying">You can still change your mind......</p>
-        @endif
+            <h1>Hello {{ $player->firstname }}</h1>
+            
+            @if (! ($responded)) 
+                <p>Let us know if you are playing this week.</p>
+            @elseif ($responded->response == 1) 
+                <p class="playing">You are playing this week!</p>
+            @elseif ($responded->response == 0)
+                <p class="notplaying">You have said you can't make it this week.</p>
+                <p class="notplaying">You can still change your mind......</p>
+            @endif
         
             <fieldset id="inputs">
                 <div class="slideThree">
@@ -45,11 +45,15 @@
                 {{ Form::submit('Respond', 
                     array('id' => 'submit')) }}
             </fieldset>
-
+        {{ Form::close() }}
+        
         @if ($playerhistory)
             <h2>history</h2>
             @foreach ($playerhistory as $played)
-                <p>Responded gameweek: {{ $played->week_as_int }}</p>
+                <p>Responded gameweek: 
+                    {{ $played->week_as_int }} - 
+                    {{ date("d M Y",strtotime($played->updated_at)) }}
+                </p>
                 <p>
                     You said: 
                     @if ($played->response == 1) 
@@ -62,7 +66,6 @@
                 </p>
             @endforeach
         @endif
-        {{ Form::close() }}
 
     </div>
 @stop
