@@ -17,7 +17,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface{
 
     public function userPlayingHistory()
     {
-        return $this->hasMany('UsersAttending', 'player_id');
+        return $this->hasMany('UsersAttending', 'player_id')
+                ->orderBy('week_as_int', 'desc');
     }
 
     public function getUserByEmail($email)

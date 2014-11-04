@@ -27,6 +27,18 @@ class PlayerController extends \BaseController {
             ->get()
             ->first();
 
+        $gameWeeks = $this->getAllTeamMatesResponses();
+
+        return View::make('footballplayer')
+            ->with('player', $this->player)
+            ->with('playerhistory', $this->player->userPlayingHistory)
+            ->with('responded', $respondedForThisWeek)
+            ->with('gameWeeks', $gameWeeks)
+            ->with('messages', $this->messages->getMessageBag());
+    }
+
+    private function getAllTeamMatesResponses()
+    {
         /**
          * Collect all the players responses
          * Organise them into gameweek keyed arrays
@@ -40,12 +52,11 @@ class PlayerController extends \BaseController {
                 'user' => User::find($responses->player_id)
             );
         }
-        return View::make('footballplayer')
-            ->with('player', $this->player)
-            ->with('playerhistory', $this->player->userPlayingHistory)
-            ->with('responded', $respondedForThisWeek)
-            ->with('gameWeeks', $gameWeeks)
-            ->with('messages', $this->messages->getMessageBag());
+        if(is_array($gameWeeks)){
+            ksort($gameWeeks);
+            return $gameWeeks;
+        }
+        return false;
     }
 
     public function currentWeekResponseAction()

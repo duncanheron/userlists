@@ -68,8 +68,9 @@
                     </li>
                     <li>Other players responses
                         <ul>
-                            <?php $thisgameWeek = array(); ?>
-                            <?php $thisgameWeek = $gameWeeks[$played->week_as_int] ?>
+                            <?php
+                            $thisgameWeek = array();
+                            $thisgameWeek = $gameWeeks[$played->week_as_int] ?>
                             @foreach ($thisgameWeek as $key => $value) 
                                 <li>{{ $value['user']->email }} - YES</li>
                             @endforeach
