@@ -1,7 +1,9 @@
 <?php
+use \Mockery;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
+	protected $userMock;
 	/**
 	 * Creates the application.
 	 *
@@ -26,6 +28,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	    Artisan::call('migrate');
 	    // Artisan::call('db:seed');
 	    Mail::pretend(true);
+	    $this->mockUser = Mockery::mock('Eloquent', 'User');
 	}
 
 	/**
@@ -40,7 +43,23 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
 	}
 
-	public function fakerTestUsers($numberOfPlayers)
+	protected function createInMemoryUser()
+	{
+    	// create one real user
+    	$faker = Faker\Factory::create();
+
+		$this->player = new Player;
+		// $testEmail = $faker->email;
+		$this->player->firstname = $faker->firstName;
+		$this->player->lastname = $faker->lastName;
+		$this->player->email = $testEmail;
+		$this->player->password = $faker->word;
+		// print "player--created\n\n";
+		$this->assertTrue($this->player->save());
+		return $this->player;
+	}
+
+	protected function fakerTestUsers($numberOfPlayers)
 	{
 		$faker = Faker\Factory::create();
  

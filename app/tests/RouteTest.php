@@ -2,29 +2,17 @@
 
 class RouteTest extends TestCase {
 
-	
 	public function testHomeRoute()
 	{
+		Route::enableFilters();
 		$this->call('GET', '/');
-
-    	$this->assertResponseOk();
+    	$this->assertRedirectedToRoute('login');
 	}
 
-	public function testPlayerRoute()
+	public function testNonLoggedInRoute()
 	{
-		$this->fakerTestUsers(1);
-
-		$this->call('GET', '/player/1');
-
-    	$this->assertResponseOk();
+		Route::enableFilters();
+		$this->call('GET', '/player');
+    	$this->assertRedirectedToRoute('login');
 	}
-
-	public function testPlayernotfoundRedirect()
-	{
-		$this->call('GET', '/player/999');
-
-		$this->assertRedirectedToRoute('home');
-		$this->assertSessionHas('message');
-	}
-
 }
