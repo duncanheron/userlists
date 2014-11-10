@@ -34,11 +34,9 @@
             @endif
         
             <fieldset id="inputs">
-                <div class="slideThree">
                     <input type="hidden" name="response" value="0" />
-                    <input type="checkbox" value="1" id="slideThree" name="response" @if ($responded) @if ($responded->response == 1) checked=checked @endif @endif/>
-                    <label for="slideThree"></label>
-                </div>
+                    <input type="checkbox" value="1" name="response" @if ($responded) @if ($responded->response == 1) checked=checked @endif @endif/>
+                    <label for="slideThreed">Yes</label>
             </fieldset>
             <fieldset id="actions">
                 <input type="hidden" name="player_id" value="{{ $player->id }}" />
@@ -59,9 +57,9 @@
                     <li>
                         You said: 
                         @if ($played->response == 1) 
-                            You are playing this week. :)
+                            Playing this week. :)
                         @elseif ($played->response == 0) 
-                            You are not playing this week. :(
+                            Not playing this week. :(
                         @else
                             Error: no response found.
                         @endif

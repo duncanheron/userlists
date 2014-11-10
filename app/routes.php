@@ -34,6 +34,10 @@ Route::post('/login', array(
     )
 );
 
+App::missing(function($exception)
+{
+    return Response::view('notfound', array(), 404);
+});
 
 
 
@@ -47,10 +51,6 @@ Route::get('/player/notfound', function()
     return View::make('playernotfound', compact('message'));
 });
 
-App::missing(function($exception)
-{
-    return Response::view('notfound', array(), 404);
-});
 // Route::resource('player', 'PlayerController');
 
 // handle the form submition

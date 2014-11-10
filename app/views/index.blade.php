@@ -6,7 +6,7 @@
 			{{ $errors->first('password') }}
 		</p>
 		{{ Form::open(array('route' => 'login', 'id' => 'email_check')) }}
-		<h1>Tuesday football</h1>
+		<h1>Login</h1>
 			<fieldset id="inputs">
 				{{ Form::text('email', 'Enter your email address...', 
 					array('id' => 'email', 'autofocus' => 'autofocus')) }}

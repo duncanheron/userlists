@@ -338,7 +338,7 @@ fieldset {
 	background: #00bf00;
 }
 input[type=checkbox] {
-	visibility: hidden;
+	/*visibility: hidden;*/
 }
 
 
