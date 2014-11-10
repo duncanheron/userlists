@@ -6,7 +6,7 @@ Feature: User journey entry points
     I should be redirected to login
  
     Scenario: Make sure the user is directed to log in from home
-        Given I am on "/index.php"
+        Given I am on "home" page
         Then I should see "Login"
 
     Scenario: Make sure the user is directed to notfound
@@ -14,30 +14,18 @@ Feature: User journey entry points
         Then I should see "PAGE NOT FOUND"
 
     Scenario: Login the user in
-        Given I am on "/login"
-        When I fill in "email" with "duncanuk@gmail.com"
-        And I fill in "password" with "test"
-        And I press "submit"
-        Then I should be on "/player"
+        Given I have logged in
         And I should see "HELLO DUNCAN"
 
     Scenario: User confirms he is playing
-        Given I am on "/login"
-        When I fill in "email" with "duncanuk@gmail.com"
-        And I fill in "password" with "test"
-        And I press "submit"
-        Then I should be on "/player"
+        Given I have logged in
         When I check "response"
         And I press "submit"
         Then I should be on "/player"
         And I should see "You are playing this week"
 
     Scenario: User confirms he is not playing
-        Given I am on "/login"
-        When I fill in "email" with "duncanuk@gmail.com"
-        And I fill in "password" with "test"
-        And I press "submit"
-        Then I should be on "/player"
+        Given I have logged in
         When I uncheck "response"
         And I press "submit"
         Then I should be on "/player"

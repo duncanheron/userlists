@@ -7,6 +7,7 @@ use Behat\Behat\Context\ClosuredContextInterface,
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\Behat\Context\Step;
 //
 // Require 3rd-party libraries here:
 //
@@ -19,6 +20,8 @@ use Behat\MinkExtension\Context\MinkContext;
  */
 class FeatureContext extends MinkContext
 {
+    protected $pages;
+    protected $elements;
     /**
      * Initializes context.
      * Every scenario gets its own context object.
@@ -28,6 +31,11 @@ class FeatureContext extends MinkContext
     public function __construct(array $parameters)
     {
         // Initialize your context here
+        $this->pages = array(
+            'home'   => '/index.php',
+            'login'  => '/login',
+            'player' => '/player'
+        );
     }
 
 //
@@ -43,12 +51,18 @@ class FeatureContext extends MinkContext
 //
 
     /**
-     * @Given /^I am on "([^"]*)"$/
+     * @Given /^I have logged in$/
      */
-    // public function iAmOn($arg1)
-    // {
-    //     throw new PendingException();
-    // }
+    public function iHaveLoggedIn()
+    {
+        return array(
+            new Step\When('I am on "login" page'),
+            new Step\When('I fill in "email" with "duncanuk@gmail.com"'),
+            new Step\When('I fill in "password" with "test"'),
+            new Step\When('I press "submit"'),
+            new Step\Then('I should be on "player" page'),
+        );
+    }
 
     /**
      * @Then /^I should see "([^"]*)"$/
@@ -58,4 +72,30 @@ class FeatureContext extends MinkContext
     //     throw new PendingException();
     // }
 
+
+    /**
+     * @Given /^I am on "([^"]*)" page$/
+     */
+    public function iAmOnPage($page)
+    {
+        if(! isset($this->pages[$page])) {
+            throw new Exception('Page not in pagelist');
+        }
+        $page = $this->pages[$page];
+        
+        return new Step\When("I am on \"$page\"");
+    }
+
+    /**
+     * @Then /^I should be on "([^"]*)" page$/
+     */
+    public function iShouldBeOnPage($page)
+    {   
+        if(! isset($this->pages[$page])) {
+            throw new Exception('Page not in pagelist');
+        }
+        $page = $this->pages[$page];
+        
+        return new Step\Then("I am on \"$page\"");
+    }
 }
