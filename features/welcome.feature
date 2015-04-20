@@ -15,7 +15,7 @@ Feature: User journey entry points
 
     Scenario: Login the user in
         Given I have logged in
-        And I should see "HELLO DUNCAN"
+        Then I should see "HELLO DUNCAN"
 
     Scenario: User confirms he is playing
         Given I have logged in
