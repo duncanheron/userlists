@@ -17,18 +17,20 @@ class PlayerSeeder extends Seeder {
         $player = User::create(
             array(
                 'id'        => 1,
+                'team_id'   => 1,
                 'firstname' => 'Duncan',
                 'lastname'  => 'Heron',
                 'email'     => 'duncanuk@gmail.com',
                 'password'  => Hash::make('test')
             )
         );
+
         $faker = Faker\Factory::create();
- 
         for ($i = 2; $i <= 10; $i++) {
             $player = User::create(
                 array(
                     'id'        => $i,
+                    'team_id'   => 1,
                     'firstname' => $faker->firstName,
                     'lastname'  => $faker->lastName,
                     'email'     => $faker->email,

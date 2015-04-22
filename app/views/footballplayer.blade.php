@@ -23,7 +23,9 @@
             )
         )}}
             <h1>Hello {{ $player->firstname }}</h1>
-            
+            @foreach ($teams as $team)
+                <h2> {{ $team->name }}</h2>
+            @endforeach
             @if (! ($responded)) 
                 <p>Let us know if you are playing this week.</p>
             @elseif ($responded->response == 1) 

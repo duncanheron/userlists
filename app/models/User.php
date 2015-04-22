@@ -13,7 +13,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface{
         'password', 
         'created_at', 
         'updated_at'
-    ); 
+    );
+
+    public function team()
+    {
+        return $this->belongsTo('Team');
+    }
 
     public function userPlayingHistory()
     {

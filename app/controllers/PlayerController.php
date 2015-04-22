@@ -28,9 +28,10 @@ class PlayerController extends \BaseController {
             ->first();
 
         $gameWeeks = $this->getAllTeamMatesResponses();
-
+        $teams = $this->player->team()->get();
         return View::make('footballplayer')
             ->with('player', $this->player)
+            ->with('teams', $teams)
             ->with('playerhistory', $this->player->userPlayingHistory)
             ->with('responded', $respondedForThisWeek)
             ->with('gameWeeks', $gameWeeks)
